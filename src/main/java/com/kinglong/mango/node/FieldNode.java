@@ -180,15 +180,27 @@ public class FieldNode extends ZKNode implements IZkDataListener {
     }
 
     public void subscribeDataChanges(ZkConfigClient zkConfigClient) {
-        zkConfigClient.subscribeDataChanges(this.getPath().value(), this);
+        this.subscribeDataChanges(this.getZkConfigClient(), this.getPath().value());
+    }
+
+    public void subscribeDataChanges(ZkConfigClient zkConfigClient, String path) {
+        this.subscribeDataChanges(zkConfigClient, path, this);
+    }
+
+    public void subscribeDataChanges(ZkConfigClient zkConfigClient, String path, IZkDataListener iZkDataListener) {
+        zkConfigClient.subscribeDataChanges(path, iZkDataListener);
 
     }
 
     public void handleDataChange(String s, Object o) throws Exception {
-        setValue(o);
+        setValue(this.field.getType().cast(o));
     }
 
     public void handleDataDeleted(String s) throws Exception {
 
+    }
+
+    public String getName() {
+        return this.field.getName();
     }
 }

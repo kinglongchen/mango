@@ -28,7 +28,7 @@ public class ZkConfigClient extends ZkClient {
     }
 
     public ZkConfigClient(String zkServers, int sessionTimeout, int connectionTimeout, String appName) {
-        this(zkServers, sessionTimeout, connectionTimeout, new StringZkSerializer(), appName);
+        this(zkServers, sessionTimeout, connectionTimeout, new MangoZkSerializer(), appName);
     }
 
     public ZkConfigClient(String zkServers,
@@ -37,6 +37,7 @@ public class ZkConfigClient extends ZkClient {
                           ZkSerializer zkSerializer,
                           String appName) {
         super(zkServers, sessionTimeout, connectionTimeout, zkSerializer);
+        initAppZookeeper(appName);
     }
 
     private void initAppZookeeper(String appName) {

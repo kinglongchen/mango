@@ -9,7 +9,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface FieldZkConfigurable {
-    @Deprecated boolean isCreateIfNull() default true;
+    boolean isCreateIfNull() default true;
 
     boolean isSubScribe() default true;
 

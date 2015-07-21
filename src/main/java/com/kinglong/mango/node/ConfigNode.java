@@ -2,7 +2,6 @@ package com.kinglong.mango.node;
 
 import com.kinglong.mango.common.node.ZKNode;
 import com.kinglong.mango.zkclient.ZkConfigClient;
-import com.sun.tools.hat.internal.model.Root;
 
 /**
  * Created by chenjinlong on 15/7/9.
