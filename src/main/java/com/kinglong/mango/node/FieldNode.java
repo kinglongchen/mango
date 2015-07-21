@@ -3,6 +3,7 @@ package com.kinglong.mango.node;
 import com.kinglong.mango.annotation.FieldZkConfigurable;
 import com.kinglong.mango.common.node.ZKNode;
 import com.kinglong.mango.zkclient.ZkConfigClient;
+import lombok.extern.slf4j.Slf4j;
 import org.I0Itec.zkclient.IZkDataListener;
 
 import java.lang.annotation.Annotation;
@@ -11,6 +12,7 @@ import java.lang.reflect.Field;
 /**
  * Created by chenjinlong on 15/7/7.
  */
+@Slf4j(topic = "FieldNode")
 public class FieldNode extends ZKNode implements IZkDataListener {
     private Field field;
 
@@ -193,10 +195,12 @@ public class FieldNode extends ZKNode implements IZkDataListener {
     }
 
     public void handleDataChange(String s, Object o) throws Exception {
+        log.info("change event : " + s + " : " + o.toString());
         setValue(this.field.getType().cast(o));
     }
 
     public void handleDataDeleted(String s) throws Exception {
+        log.warn("delete event : " + s);
 
     }
 

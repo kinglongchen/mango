@@ -4,12 +4,14 @@ import com.kinglong.mango.common.base.AbstractMango;
 import com.kinglong.mango.common.path.Path;
 import com.kinglong.mango.common.path.ZKPath;
 import com.kinglong.mango.zkclient.ZkConfigClient;
+import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Field;
 
 /**
  * Created by chenjinlong on 15/7/8.
  */
+@Slf4j(topic = "ZKNode")
 public abstract class ZKNode extends AbstractMango implements Node {
     private Path path;
     private Node parent;
@@ -85,6 +87,8 @@ public abstract class ZKNode extends AbstractMango implements Node {
         if (this.isExists(zkConfigClient)) {
             return;
         }
+        String path = this.getPath().value();
+        log.info("Starting Create ZKNode wich path is:"+path);
         zkConfigClient.createPersistent(this.getPath().value());
     }
 
