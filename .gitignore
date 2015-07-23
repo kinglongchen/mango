@@ -5,3 +5,6 @@ agent.iml
 agent.ipr
 agent.iws
 mango.iml
+C:
+src/main/java/com/kinglong/mango/config/temp
+src/main/java/com/kinglong/mango/config/spring/temp
