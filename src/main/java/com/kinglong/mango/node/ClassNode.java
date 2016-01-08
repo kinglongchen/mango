@@ -40,8 +40,7 @@ public class ClassNode extends ZKNode {
             return;
         }
         Field[] fields = clazz.getFields();
-        for (int i = 0; i < fields.length; i++) {
-            Field field = fields[i];
+        for (Field field : fields) {
             FieldNode fieldNode = new FieldNode(this, field);
             this.fieldNodeSet.add(fieldNode.getName());
         }

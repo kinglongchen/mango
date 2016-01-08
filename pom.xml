@@ -128,14 +128,12 @@
         <snapshotRepository>
             <id>kinglong-snapshots</id>
             <name>kinglong snapshots</name>
-            <url>http://www.kinglong.com:8088/nexus/content/repositories/snapshots
-            </url>
+            <url>http://www.kinglong.com:8088/nexus/content/repositories/snapshots</url>
         </snapshotRepository>
         <repository>
             <id>kinglong-releases</id>
             <name>kinglong releases</name>
-            <url>http://www.kinglong.com:8088/nexus/content/repositories/releases
-            </url>
+            <url>http://www.kinglong.com:8088/nexus/content/repositories/releases</url>
         </repository>
     </distributionManagement>
 

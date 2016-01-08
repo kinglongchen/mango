@@ -58,8 +58,7 @@ public abstract class ZKNode extends AbstractMango implements Node {
     }
 
     public <T> T getZkValue(ZkConfigClient zkConfigClient) {
-        T data = zkConfigClient.readData(this.getPath().value());
-        return data;
+        return zkConfigClient.readData(this.getPath().value());
     }
 
     public <T> T getZkValue() {
