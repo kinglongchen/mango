@@ -5,7 +5,7 @@ import junit.framework.TestCase;
 /**
  * Created by chenjinlong on 15/7/14.
  */
-public class ZkConfigClientTest extends TestCase {
+public class MangoZkClientTest extends TestCase {
 
     String  你是鬼啊;
     public void setUp() throws Exception {

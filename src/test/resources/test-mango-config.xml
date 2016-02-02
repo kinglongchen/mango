@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mango="http://www.kinglong.com/schema/mango"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.kinglong.com/schema/mango http://www.kinglong.com/schema/mango.xsd">
+
+       <mango:register protocal="zookeeper" address="120.26.56.174"/>
+
+       <mango:application name="mangotest" auto_scan="true" base_package="com.kinglong.mango.testpack"/>
+
+       <bean class="com.kinglong.mango.testBean"/>
+
+</beans>

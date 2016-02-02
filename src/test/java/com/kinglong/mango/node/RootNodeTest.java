@@ -1,6 +1,5 @@
 package com.kinglong.mango.node;
 
-import com.kinglong.mango.zkclient.ZkConfigClient;
 import junit.framework.TestCase;
 
 /**

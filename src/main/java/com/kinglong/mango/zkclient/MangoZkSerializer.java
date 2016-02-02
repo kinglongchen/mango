@@ -20,15 +20,14 @@ public class MangoZkSerializer implements ZkSerializer {
     }
 
     public byte[] serialize(Object data) throws ZkMarshallingError {
-        ObjectOutputStream oos = null;
-        ByteArrayOutputStream baos = null;
+        ObjectOutputStream oos;
+        ByteArrayOutputStream baos;
         try {
             log.info("数据序列化中。。。");
             baos = new ByteArrayOutputStream();
             oos = new ObjectOutputStream(baos);
             oos.writeObject(data);
-            byte[] bytes = baos.toByteArray();
-            return bytes;
+            return baos.toByteArray();
         } catch (Exception e) {
             log.error("对象序列化失败",e);
             return null;
@@ -36,8 +35,8 @@ public class MangoZkSerializer implements ZkSerializer {
     }
 
     public Object deserialize(byte[] bytes) throws ZkMarshallingError {
-        ObjectInputStream ois = null;
-        ByteArrayInputStream bais = null;
+        ObjectInputStream ois;
+        ByteArrayInputStream bais;
         try {
             log.info("数据反序列化中。。。");
             bais = new ByteArrayInputStream(bytes);

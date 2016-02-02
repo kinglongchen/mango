@@ -1,4 +1,4 @@
-package com.kinglong.mango.util;
+package com.kinglong.mango.common.util;
 
 /**
  * Created by chenjinlong on 15/7/7.

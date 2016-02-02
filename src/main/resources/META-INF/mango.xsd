@@ -1,44 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns="http://www.kinglong.com/schema/mango"
-       xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-       xmlns:beans="http://www.springframework.org/schema/beans"
-       targetNamespace="http://www.kinglong.com/schema/mango"
-       elementFormDefault="qualified"
-       attributeFormDefault="unqualified">
-       <xsd:import namespace="http://www.springframework.org/schema/beans"/>
-       <xsd:import namespace="http://www.springframework.org/schema/tool"/>
-       <xsd:complexType name="classType">
-              <xsd:simpleContent>
-                     <xsd:extension base="xsd:string"/>
-              </xsd:simpleContent>
-       </xsd:complexType>
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:beans="http://www.springframework.org/schema/beans"
+            targetNamespace="http://www.kinglong.com/schema/mango"
+            elementFormDefault="qualified"
+            attributeFormDefault="unqualified">
+    <xsd:import namespace="http://www.springframework.org/schema/beans"/>
+    <xsd:import namespace="http://www.springframework.org/schema/tool"/>
 
-       <xsd:complexType name="classesType">
-              <xsd:sequence>
-                     <xsd:element name="class" type="classType" minOccurs="1" maxOccurs="unbounded"/>
-              </xsd:sequence>
-       </xsd:complexType>
 
-       <xsd:complexType name="initType">
-              <xsd:complexContent>
-              <xsd:extension base="beans:identifiedType">
-                     <xsd:all>
-                            <xsd:element name="classes" type="classesType"/>
-                     </xsd:all>
-                     <xsd:attribute name="app" type="xsd:string">
-                            <xsd:annotation>
-                                   <xsd:documentation><![CDATA[ app的名字 ]]></xsd:documentation>
-                            </xsd:annotation>
-                     </xsd:attribute>
-                     <xsd:attribute name="address" type="xsd:string">
-                            <xsd:annotation>
-                                   <xsd:documentation><![CDATA[ zookeeper的ip地址和端口字符串 ]]></xsd:documentation>
-                            </xsd:annotation>
-                     </xsd:attribute>
-              </xsd:extension>
-              </xsd:complexContent>
-       </xsd:complexType>
-       <xsd:element name="init" type="initType"/>
+    <xsd:complexType name="registerType">
+        <xsd:attribute name="name" type="xsd:string">
+            <xsd:annotation>
+                <xsd:documentation><![CDATA[ register的名字 ]]></xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="protocal" type="xsd:string">
+            <xsd:annotation>
+                <xsd:documentation><![CDATA[ register的名字 ]]></xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="address" type="xsd:string">
+            <xsd:annotation>
+                <xsd:documentation><![CDATA[ register的地址 ]]></xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="port" type="xsd:integer">
+            <xsd:annotation>
+                <xsd:documentation><![CDATA[ register的端口 ]]></xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="sessionTimeout" type="xsd:integer">
+            <xsd:annotation>
+                <xsd:documentation><![CDATA[ register的session超时时间 ]]></xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="connectionTimeout" type="xsd:integer">
+            <xsd:annotation>
+                <xsd:documentation><![CDATA[ register的connect超时时间 ]]></xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+    </xsd:complexType>
+    <xsd:element name="register" type="registerType"/>
+
+    <xsd:complexType name="applicationType">
+        <xsd:attribute name="name" type="xsd:string">
+            <xsd:annotation>
+                <xsd:documentation><![CDATA[ application的名字 ]]></xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="auto_scan" type="xsd:boolean" default="false">
+            <xsd:annotation>
+                <xsd:documentation><![CDATA[ application的名字 ]]></xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="base_package" type="xsd:string">
+            <xsd:annotation>
+                <xsd:documentation><![CDATA[ application的名字 ]]></xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+    </xsd:complexType>
+    <xsd:element name="application" type="applicationType"/>
 
 
 </xsd:schema>

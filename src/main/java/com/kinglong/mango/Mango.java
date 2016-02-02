@@ -1,43 +1,69 @@
 package com.kinglong.mango;
 
-import com.kinglong.mango.annotation.MangoConfigurable;
 import com.kinglong.mango.exception.MangoException;
-import com.kinglong.mango.zkclient.ZkConfigClient;
+import com.kinglong.mango.exception.error.MangoError;
+import com.kinglong.mango.node.AppZkNode;
+import com.kinglong.mango.zkclient.factory.MangoZkClientFactory;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.ApplicationContext;
-
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Pattern;
+import org.I0Itec.zkclient.serialize.ZkSerializer;
 
 /**
  * Created by chenjinlong on 15/7/23.
  */
 @Slf4j
 public class Mango {
-//    private static final Pattern ZOOKEEER_ADDRESS =
-//            Pattern.compile("((?:(?:25[0-5]|2[0-4]\\d|((1\\d{2})|([1-9]?\\d)))" +
-//                    "\\.){3}(?:25[0-5]|2[0-4]\\d|((1\\d{2})|([1-9]?\\d))))");
-    private ZkConfigClient zkConfigClient = null;
 
-    public Mango(String appName, String address,List<Class> cfgClassList) {
-        log.info("正在初始化配置类...");
-        initMango(appName, address,cfgClassList);
-        log.info("配置类初始化结束!");
+    @Setter
+    private  MangoZkClientFactory mangoZkClientFactory;
 
+
+
+    @Getter
+    private AppZkNode appNode;
+
+    public void initZkClient(String zkAddress,
+                             Integer zkPort,
+                             int sessionTimeout,
+                             int connectionTimeout,
+                             ZkSerializer zkSerializer) {
+        if (mangoZkClientFactory != null) {
+            return;
+        }
+        mangoZkClientFactory = new MangoZkClientFactory();
+        mangoZkClientFactory.setZkAddress(zkAddress);
+        mangoZkClientFactory.setZkPort(zkPort);
+        mangoZkClientFactory.setSessionTimeout(sessionTimeout);
+        mangoZkClientFactory.setConnectionTimeout(connectionTimeout);
+        mangoZkClientFactory.setZkSerializer(zkSerializer);
     }
 
-    private void initMango(String appName, String address,List<Class> cfgClassList) {
-        this.zkConfigClient = new ZkConfigClient(address,appName);
-        for (Class clazz: cfgClassList) {
-            this.register(clazz);
-        }
+    public void initAppNode(String appName) {
+
+//        if (mangoZkClientFactory == null) {
+//            throw new MangoException(MangoError.MANGO_NULL_ZKCLIENT_ERROR);
+//        }
+//        ApplicationConfig.setMangoZkClientFactory(mangoZkClientFactory);
+//
+//        log.info("正在初始化Mango...");
+//        appNode = ApplicationConfig.factory(appName);
+//        log.info("配置类初始化结束!");
     }
 
-    private void register(Class clazz) {
-        if (this.zkConfigClient == null) {
-            throw new MangoException();
+
+    public void register(Class clazz) {
+        if (appNode == null) {
+            throw new MangoException(MangoError.MANGO_NULL_APPNODE_ERROR);
         }
-        this.zkConfigClient.register(clazz);
+        appNode.register(clazz);
+    }
+
+    private void setMangoZkClientFactory(MangoZkClientFactory mangoZkClientFactory) {
+        if (this.mangoZkClientFactory != null) {
+            log.info("[MANGO]Already appoint MangoZkClientFactory");
+            return;
+        }
+        this.mangoZkClientFactory = mangoZkClientFactory;
     }
 }

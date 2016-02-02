@@ -1,5 +1,7 @@
 package com.kinglong.mango.config.spring.schema;
 
+import com.kinglong.mango.config.ApplicationConfig;
+import com.kinglong.mango.config.RegisterConfig;
 import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
 
 /**
@@ -7,7 +9,9 @@ import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
  */
 public class MangoNamespaceHandler extends NamespaceHandlerSupport {
     public void init() {
-        registerBeanDefinitionParser("init",new MangoBeanDefinitionParser());
+        registerBeanDefinitionParser("application",new MangoBeanDefinitionParser(ApplicationConfig.class,true));
+        registerBeanDefinitionParser("register", new MangoBeanDefinitionParser(RegisterConfig.class,true));
+
 
     }
 }
