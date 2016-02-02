@@ -11,3 +11,5 @@ src/main/java/com/kinglong/mango/config/temp
 /logs/error.log
 /logs
 src/main/java/com/kinglong/mango/config/spring/temp
+/mango-core/target
+/mango-parent.iml
