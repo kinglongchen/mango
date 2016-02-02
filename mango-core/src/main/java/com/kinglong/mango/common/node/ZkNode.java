@@ -1,6 +1,5 @@
 package com.kinglong.mango.common.node;
 
-import com.kinglong.mango.common.base.Mango;
 import com.kinglong.mango.zkclient.MangoZkClient;
 
 /**

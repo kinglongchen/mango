@@ -1,6 +1,5 @@
 package com.kinglong.mango.exception;
 
-import com.kinglong.mango.Mango;
 import com.kinglong.mango.exception.error.MangoError;
 import lombok.Getter;
 

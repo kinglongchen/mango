@@ -1,7 +1,6 @@
 package com.kinglong.mango.node;
 
 import com.kinglong.mango.common.node.DefaultZKNode;
-import com.kinglong.mango.common.node.Node;
 import com.kinglong.mango.common.node.ZkNode;
 
 /**

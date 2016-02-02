@@ -1,6 +1,5 @@
 package com.kinglong.mango.zkclient;
 
-import com.kinglong.mango.node.*;
 import org.I0Itec.zkclient.ZkClient;
 import org.I0Itec.zkclient.serialize.ZkSerializer;
 

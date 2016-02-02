@@ -1,17 +1,6 @@
 package com.kinglong.mango.listener;
 
-import com.google.common.collect.Lists;
-import com.kinglong.mango.annotation.MangoConfigurable;
-import com.kinglong.mango.zkclient.MangoZkClient;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.ApplicationContext;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
-
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by chenjinlong on 15/7/3.
