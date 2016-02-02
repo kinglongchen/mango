@@ -1,3 +1,4 @@
+/mango-core/mango-core.iml
 # Created by .ignore support plugin (hsz.mobi)
 out
 .idea
@@ -7,4 +8,6 @@ agent.iws
 mango.iml
 C:
 src/main/java/com/kinglong/mango/config/temp
+/logs/error.log
+/logs
 src/main/java/com/kinglong/mango/config/spring/temp

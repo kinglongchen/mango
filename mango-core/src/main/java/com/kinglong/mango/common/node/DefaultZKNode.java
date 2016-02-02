@@ -3,7 +3,6 @@ package com.kinglong.mango.common.node;
 import com.kinglong.mango.common.base.AbstractMango;
 import com.kinglong.mango.common.path.Path;
 import com.kinglong.mango.common.path.ZKPath;
-import com.kinglong.mango.exception.MangoNullFieldException;
 import com.kinglong.mango.zkclient.MangoZkClient;
 import lombok.extern.slf4j.Slf4j;
 
