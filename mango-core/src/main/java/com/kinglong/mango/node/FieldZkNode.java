@@ -2,10 +2,12 @@ package com.kinglong.mango.node;
 
 import com.kinglong.mango.annotation.FieldZkConfigurable;
 import com.kinglong.mango.common.node.DefaultZKNode;
-import com.kinglong.mango.zkclient.MangoZkClient;
+import com.kinglong.mango.common.util.ReflectUtils;
+import com.kinglong.mango.exception.MangoException;
+import com.kinglong.mango.register.Listener;
+import com.kinglong.mango.register.Register;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.I0Itec.zkclient.IZkDataListener;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -16,13 +18,16 @@ import java.lang.reflect.Field;
  * Created by chenjinlong on 15/7/7.
  */
 @Slf4j(topic = "FieldNode")
-public class FieldZkNode extends DefaultZKNode implements IZkDataListener {
+public class FieldZkNode extends DefaultZKNode implements Listener {
 
     @Getter
     private Field field;
 
     FieldZkNode(ClassZkNode parent, Field field) {
         super(parent, field);
+        if (!ReflectUtils.isPrimitive(field.getType())) {
+            throw new MangoException("[MANGO] Unsupported primitive filed: "+field.getType().getName());
+        }
         this.field = field;
     }
 
@@ -41,13 +46,13 @@ public class FieldZkNode extends DefaultZKNode implements IZkDataListener {
     public <K> K getValue(Class clazz) {
         K rs = null;
         if (this.field == null) {
-            return rs;
+            return null;
         }
 
         try {
             rs = (K) this.field.get(clazz);
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            log.error(e.getMessage(),e);
         }
         return rs;
     }
@@ -64,25 +69,25 @@ public class FieldZkNode extends DefaultZKNode implements IZkDataListener {
         try {
             this.field.set(clazz, val);
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            log.error(e.getMessage(),e);
         }
     }
 
-    public void synValue(MangoZkClient mangoZkClient) {
-        create(mangoZkClient);
+    public void synValue(Register register) {
+        create(register);
         if (!isSyn()) {
             return;
         }
 
-        Object val = getZkValue(mangoZkClient);
+        Object val = getZkValue(register);
         if (val == null && isCreateIfNull() && getValue()!=null) {
-            setZkValue(mangoZkClient,getValue());
+            setZkValue(register,getValue());
         }
         if (val != null) {
             setValue(val);
         }
         if (isSubScribe()) {
-            subscribeDataChanges(mangoZkClient);
+            subscribeDataChanges(register);
         }
     }
 
@@ -141,17 +146,17 @@ public class FieldZkNode extends DefaultZKNode implements IZkDataListener {
 
     }
 
-    public void subscribeDataChanges(MangoZkClient mangoZkClient) {
-        this.subscribeDataChanges(mangoZkClient, this.getPath().value());
+    public void subscribeDataChanges(Register register) {
+        this.subscribeDataChanges(register, this.getPath().value());
     }
 
-    public void subscribeDataChanges(MangoZkClient mangoZkClient, String path) {
-        this.subscribeDataChanges(mangoZkClient, path, this);
+    public void subscribeDataChanges(Register register, String path) {
+        this.subscribeDataChanges(register, path, this);
     }
 
-    public void subscribeDataChanges(MangoZkClient mangoZkClient, String path, IZkDataListener iZkDataListener) {
+    public void subscribeDataChanges(Register register, String path, Listener listener) {
         log.info("[MANGO]Subscribe data change for field:"+this.field.getName());
-        mangoZkClient.subscribeDataChanges(path, iZkDataListener);
+        register.subscribeDataChanges(path, listener);
 
     }
 

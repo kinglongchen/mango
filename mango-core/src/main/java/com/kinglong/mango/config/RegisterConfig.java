@@ -1,11 +1,13 @@
 package com.kinglong.mango.config;
 
-import com.kinglong.mango.zkclient.MangoZkClient;
-import com.kinglong.mango.zkclient.MangoZkSerializer;
+import com.kinglong.mango.exception.MangoException;
+import com.kinglong.mango.register.ProtocolEnum;
+import com.kinglong.mango.register.Register;
+import com.kinglong.mango.register.Serializer;
+import com.kinglong.mango.register.zookeeper.ZkRegister;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.I0Itec.zkclient.serialize.ZkSerializer;
 
 /**
  * Created by chenjinlong on 16/1/13.
@@ -35,23 +37,43 @@ public class RegisterConfig extends AbstractConfig {
     //Zookeeper 序列化对象
     @Setter
     @Getter
-    private ZkSerializer zkSerializer = null;
+    private Serializer serializer = null;
 
     @Getter
-    private MangoZkClient mangoZkClient = null;
+    private Register register = null;
 
-    public synchronized MangoZkClient getClient() {
-        if (mangoZkClient != null) {
-            return mangoZkClient;
+    @Getter
+    private ProtocolEnum protocol = ProtocolEnum.ZOOKEEPER;
+
+    public void setProtocol(String protocol) {
+        this.protocol = ProtocolEnum.getByName(protocol);
+    }
+
+    public synchronized Register getClient() {
+        if (register != null) {
+            return register;
         }
         log.info("[MANGO]staring initialize zookeeper client...");
-        String zkServers = String.format("%s:%s",address,port);
-        if (zkSerializer == null) {
-            zkSerializer = new MangoZkSerializer();
+
+        switch (protocol) {
+            case ZOOKEEPER:
+                register = initZkRegister();
+                break;
+            default:
+                throw new MangoException("[MANGO]Unsupported protocol type:"+protocol.getName());
         }
-        mangoZkClient = new MangoZkClient(zkServers,connectionTimeout,sessionTimeout,zkSerializer);
+
         log.info("[MANGO]Zookeeper client initialization complete!");
-        return mangoZkClient;
+        return register;
 
     }
+
+    private Register initZkRegister() {
+        if (this.serializer == null) {
+            return new ZkRegister(address,port,connectionTimeout,sessionTimeout);
+        }
+        return new ZkRegister(address,port,connectionTimeout,sessionTimeout,this.serializer);
+    }
+
+
 }

@@ -3,7 +3,8 @@ package com.kinglong.mango.node;
 import com.google.common.collect.Sets;
 import com.kinglong.mango.annotation.FieldZkConfigurable;
 import com.kinglong.mango.common.node.DefaultZKNode;
-import com.kinglong.mango.zkclient.MangoZkClient;
+import com.kinglong.mango.common.util.ReflectUtils;
+import com.kinglong.mango.register.Register;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.annotation.Annotation;
@@ -34,7 +35,7 @@ public class ClassZkNode extends DefaultZKNode {
         }
         Field[] fields = clazz.getDeclaredFields();
         for (Field field : fields) {
-            if (Modifier.isStatic(field.getModifiers())) {
+            if (Modifier.isStatic(field.getModifiers()) && ReflectUtils.isPrimitive(field.getType())) {
                 log.debug("[MANGO] Monitor the field:"+field.getName());
                 FieldZkNode fieldNode = new FieldZkNode(this, field);
                 this.fieldNodeSet.add(fieldNode);
@@ -42,12 +43,12 @@ public class ClassZkNode extends DefaultZKNode {
         }
     }
 
-    public void synFields(MangoZkClient mangoZkClient) {
+    public void synFields(Register register) {
         if (fieldNodeSet == null || fieldNodeSet.size() == 0) {
             return;
         }
         for (FieldZkNode fieldZkNode:fieldNodeSet) {
-            fieldZkNode.synValue(mangoZkClient);
+            fieldZkNode.synValue(register);
         }
     }
 

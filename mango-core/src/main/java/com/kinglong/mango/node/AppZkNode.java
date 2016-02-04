@@ -26,7 +26,7 @@ public class AppZkNode extends DefaultZKNode {
                     "the class with name[%s],it will ignore the registration this time", clazz.getName());
             log.warn(warnMsg);
         }
-        log.info(String.format("[DUBBO]Register class [%s]",clazz.getName()));
+        log.info(String.format("[MANGO]Register class [%s]",clazz.getName()));
         ClassZkNode classNode = new ClassZkNode(this,clazz);
 
         classNodeMap.put(clazz.getName(),classNode);

@@ -2,6 +2,7 @@ package com.kinglong.mango.common.util;
 
 import com.google.common.collect.Lists;
 import com.kinglong.mango.config.PropertyHolder;
+import com.kinglong.mango.exception.MangoException;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -31,6 +32,12 @@ public class ReflectUtils {
                 || cls == Character.class || cls == Short.class || cls == Integer.class
                 || cls == Long.class || cls == Float.class || cls == Double.class
                 || cls == String.class || cls == Date.class || cls == Class.class;
+    }
+
+    public static void checkIsPrimitive(Class<?> cls) {
+        if (!isPrimitive(cls)) {
+            throw new MangoException("[MANGO]Non Primitive Type:"+cls.getName());
+        }
     }
 
     public static List<Method> getSetterMethods(Class<?> cls) {

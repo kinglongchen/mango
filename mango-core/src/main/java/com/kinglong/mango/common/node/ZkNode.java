@@ -1,19 +1,20 @@
 package com.kinglong.mango.common.node;
 
-import com.kinglong.mango.zkclient.MangoZkClient;
+
+import com.kinglong.mango.register.Register;
 
 /**
  * Created by chenjinlong on 16/1/31.
  */
 public interface ZkNode extends Node{
 
-    <T> T getZkValue(MangoZkClient mangoZkClient);
+    <T> T getZkValue(Register register);
 
-    <T> void setZkValue(MangoZkClient mangoZkClient, T data);
+    <T> void setZkValue(Register register, T data);
 
-    void create(MangoZkClient mangoZkClient);
+    void create(Register register);
 
-    Boolean isExists(MangoZkClient mangoZkClient);
+    Boolean isExists(Register register);
 
     ZkNode getParent();
 }

@@ -3,7 +3,7 @@ package com.kinglong.mango.common.node;
 import com.kinglong.mango.common.base.AbstractMango;
 import com.kinglong.mango.common.path.Path;
 import com.kinglong.mango.common.path.ZKPath;
-import com.kinglong.mango.zkclient.MangoZkClient;
+import com.kinglong.mango.register.Register;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Field;
@@ -51,28 +51,28 @@ public abstract class DefaultZKNode extends AbstractMango implements ZkNode {
         return this.path;
     }
 
-    public <T> T getZkValue(MangoZkClient mangoZkClient) {
-        return mangoZkClient.readData(this.path.value());
+    public <T> T getZkValue(Register register) {
+        return register.readData(this.path.value());
     }
 
-    public <T> void setZkValue(MangoZkClient mangoZkClient, T data) {
-        mangoZkClient.writeData(this.getPath().value(), data);
+    public <T> void setZkValue(Register register, T data) {
+        register.writeData(this.getPath().value(), data);
     }
 
-    public Boolean isExists(MangoZkClient mangoZkClient) {
-        return mangoZkClient.exists(this.getPath().value());
+    public Boolean isExists(Register register) {
+        return register.exists(this.getPath().value());
     }
 
 
-    public void create(MangoZkClient mangoZkClient) {
+    public void create(Register register) {
         if (parent != null) {
-            parent.create(mangoZkClient);
+            parent.create(register);
         }
-        if (this.isExists(mangoZkClient)) {
+        if (this.isExists(register)) {
             return;
         }
         String path = this.getPath().value();
         log.info("Starting Create ZKNode with path:" + path);
-        mangoZkClient.createPersistent(this.getPath().value());
+        register.create(this.getPath().value());
     }
 }
