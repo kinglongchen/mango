@@ -8,3 +8,6 @@ out
 /mango-core/target
 /mango-parent.iml
 *.log
+/mango-admin/target
+
+/classes
