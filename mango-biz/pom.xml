@@ -13,6 +13,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.kinglong.mango</groupId>
             <artifactId>mango-core</artifactId>
             <version>1.0-SNAPSHOT</version>
