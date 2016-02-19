@@ -2,14 +2,9 @@
 # Created by .ignore support plugin (hsz.mobi)
 out
 .idea
-agent.iml
-agent.ipr
-agent.iws
-mango.iml
-C:
-src/main/java/com/kinglong/mango/config/temp
+*.iml
 /logs/error.log
 /logs
-src/main/java/com/kinglong/mango/config/spring/temp
 /mango-core/target
 /mango-parent.iml
+*.log
