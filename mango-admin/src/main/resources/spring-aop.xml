@@ -4,11 +4,19 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 
-       <aop:config proxy-target-class="false">
-              <aop:pointcut id="sessionWrapper"
-                            expression="@annotation(com.kinglong.mango.annotation.SessionAuth) and execution(String com.kinglong.mango.controller.*.*(..))"/>
-              <aop:advisor advice-ref="sessionInterceptor"
-                           pointcut-ref="sessionWrapper"/>
-       </aop:config>
+    <aop:config proxy-target-class="false">
+        <aop:pointcut id="sessionWrapper"
+                      expression="@annotation(com.kinglong.mango.admin.annotation.SessionAuth) and execution(String com.kinglong.mango.admin.controller.*.*(..))"/>
+        <aop:advisor advice-ref="sessionInterceptor"
+                     pointcut-ref="sessionWrapper"/>
+    </aop:config>
+
+    <aop:config proxy-target-class="false">
+        <aop:pointcut id="HttpRequestWapper"
+                      expression="@annotation(org.springframework.web.bind.annotation.ResponseBody) and
+                      execution(com.kinglong.mango.common.result.* com.kinglong.mango.admin.controller.*.*(..))"/>
+        <aop:advisor advice-ref="httpRequestInterceptor"
+                     pointcut-ref="HttpRequestWapper"/>
+    </aop:config>
 
 </beans>

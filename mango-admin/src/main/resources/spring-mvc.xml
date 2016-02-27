@@ -7,7 +7,7 @@
     <context:component-scan base-package="com.kinglong.mango"/>
     <mvc:annotation-driven>
         <mvc:message-converters register-defaults="true">
-            <!-- 将StringHttpMessageCOnverter的默认编码设为UTF-8 -->
+            <!-- 将StringHttpMessageConverter的默认编码设为UTF-8 -->
             <bean class="org.springframework.http.converter.StringHttpMessageConverter">
                 <constructor-arg value="UTF-8"/>
             </bean>
@@ -15,7 +15,7 @@
     </mvc:annotation-driven>
 
     <!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
-    <mvc:resources mapping="/resources/**" location="/static/"/>
+    <mvc:resources mapping="/static/**" location="/static/"/>
 
     <!-- 拦截器 -->
     <!--<mvc:interceptors>-->

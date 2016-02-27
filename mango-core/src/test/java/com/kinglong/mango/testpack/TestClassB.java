@@ -1,6 +1,6 @@
 package com.kinglong.mango.testpack;
 
-import com.kinglong.mango.annotation.FieldZkConfigurable;
+import com.kinglong.mango.core.annotation.FieldZkConfigurable;
 
 /**
  * Created by chenjinlong on 16/2/2.

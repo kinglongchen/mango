@@ -166,7 +166,7 @@
       }
     }
 
-    // create the parent element that will hold the plugin & save it for later
+    // create the parentPath element that will hold the plugin & save it for later
     $(this.element).html("<div class='clndr'></div>");
     this.calendarContainer = $('.clndr', this.element);
 

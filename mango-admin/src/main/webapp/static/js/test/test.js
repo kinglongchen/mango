@@ -2,6 +2,15 @@
  * Created by chenjinlong on 16/2/19.
  */
 define(function(require,exports,module){
-    var jurl = require.resolve('jquery.min.js')
-    console.log(jurl);
-})
+    var $ = require('jquery');
+
+    var _ = require('underscore');
+
+    var tpl = require('tpl/test.tpl');
+
+    var template = _.template(tpl);
+
+    var rs = template({name:'陈金龙'});
+
+    console.log(rs)
+});

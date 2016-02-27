@@ -2,8 +2,20 @@
 <body>
 <h2>您好！这里是Mango控制中心！</h2>
 <script src="js/seajs/sea.js"></script>
+<script src="js/seajs/seajs-text.js"></script>
 <script>
-    seajs.use("test")
+    seajs.config({
+        'base': '.',
+        'alias': {
+            'jquery': 'js/jquery.min',
+            'underscore': 'js/underscore-min'
+        }
+
+    });
+    seajs.use("./js/test/test");
+    //    seajs.use(['underscore'], function (_) {
+    //        console.log(_);
+    //    });
 </script>
 
 </body>
